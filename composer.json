@@ -1,0 +1,15 @@
+{
+    "name": "kvtime/newsstand",
+    "type": "project",
+    "require": {
+        "php": ">=5.4.0",
+        "ext-imagick": "*",
+        "mikecao/flight": "^1.3",
+        "lexty/robokassa": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "KV\\": "app/"
+        }
+    }
+}

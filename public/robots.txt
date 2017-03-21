@@ -1,0 +1,6 @@
+User-agent: *
+
+Disallow: /@
+Disallow: /payment
+Disallow: /download
+Disallow: /*/buy

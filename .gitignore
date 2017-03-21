@@ -1,0 +1,10 @@
+/vendor/
+composer.lock
+
+/app/config.php
+
+/archive/*
+!/archive/
+/public/covers/*
+!/public/covers/
+
