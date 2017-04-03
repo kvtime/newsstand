@@ -2,6 +2,23 @@
 	box-sizing: inherit;
 }
 
+@keyframes shake {
+  from, to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
 html {
 	box-sizing: border-box;
 }
@@ -87,7 +104,11 @@ body {
 	border-radius: 3px;
 	transition: background-color ease .2s;
 }
-.btn:hover {
+.btn[disabled]{
+	cursor: default;
+	color:#ccc;
+}
+.btn:not([disabled]):hover {
 	background-color: #35b162;
 }
 
@@ -182,6 +203,45 @@ body {
 }
 
 /* Editor specific CSS ********************************************************/
+
+.auth-form {
+	max-width: 500px;
+	padding: 50px;
+	border: 1px solid #32a75d;
+	border-radius: 10px;
+	margin: 0 auto;
+}
+.auth-form__title {
+	margin:0;
+	margin-bottom: 30px;
+}
+.auth-form__password-field {
+	border: 0;
+	background: #f0f0f0;
+	border-radius: 3px;
+	margin: 0;
+	margin-bottom: 10px;
+	padding: 5px 15px;
+    font-size: 30px;
+    outline: none;
+    width: 100%;
+}
+
+.auth-form__spinner:not([hidden]) {
+    background: url(/images/spin.svg);
+    background-repeat: no-repeat;
+    width: 37px;
+    height: 37px;
+    display: inline-block;
+    margin: 0px 5px;
+    vertical-align: middle;
+    background-position: center;
+}
+
+.auth-form_error {
+	animation: shake 0.82s;
+	transform: translate3d(0, 0, 0);
+}
 
 /**
  * Invoices list

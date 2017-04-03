@@ -1,5 +1,37 @@
 (function(document, $){
 
+	$('.auth-form').on('submit', function(event) {
+		event.preventDefault();
+
+		$.ajax({
+			url: '/sign-in',
+			type: 'post',
+			data: $(this).serialize(),
+			beforeSend: function() {
+				$('.auth-form__submit-button').attr('disabled', 'disabled');
+				$('.auth-form__spinner').removeAttr('hidden');
+			}
+		})
+		.done(function(response) {
+
+		})
+		.always(function(response) {
+			$('.auth-form__submit-button').removeAttr('disabled');
+			$('.auth-form__spinner').attr('hidden', 'hidden');
+
+			if(response.status === 404) {
+				$('.auth-form').addClass('auth-form_error');
+				$('.auth-form__password-field').val('');
+			} else {
+				window.location.href = '/@/';
+			}
+		});
+
+	});
+	$('.auth-form__password-field').on('input', function(event) {
+		$('.auth-form').removeClass('auth-form_error');
+	});
+
 
 	$('.issue-form__remove-button').on('click', function(event) {
 		event.preventDefault();

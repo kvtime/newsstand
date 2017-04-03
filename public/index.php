@@ -227,17 +227,35 @@ Flight::route('/sitemap.xml', function () {
  */
 
 Flight::route('/%40(/*)', function () use ($config) {
-    if (isset($_SERVER['PHP_AUTH_USER']) and
-        $_SERVER['PHP_AUTH_USER'] == $config['editor']['login'] and
-        $_SERVER['PHP_AUTH_PW'] == $config['editor']['password']
-    ) {
-        $_SESSION['editor'] = true;
-
+    if (isset($_SESSION['editor'])) {
         return true;
     } else {
-        header('WWW-Authenticate: Basic realm="Staff only"');
-        header('HTTP/1.0 401 Unauthorized');
-        echo '<meta http-equiv="refresh" content="0;/">';
+        Flight::redirect('/sign-in');
+    }
+});
+
+Flight::route('GET /sign-in', function () {
+
+    if (isset($_SESSION['editor'])) {
+        Flight::redirect('/@/');
+    }
+
+    Flight::render('editor/auth', [], 'content');
+
+    Flight::render('layout');
+});
+
+Flight::route('POST /sign-in', function () use ($config) {
+    $password = $_POST['password'];
+
+    sleep(5); // prevent bruteforce attack
+
+    if ($config['editor']['password'] === $password) {
+        $_SESSION['editor'] = true;
+
+        Flight::halt(200);
+    } else {
+        Flight::halt(404);
     }
 });
 
