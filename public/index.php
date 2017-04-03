@@ -210,6 +210,17 @@ Flight::route('/download/@hash:[a-z0-9]+', function ($hash) {
     }
 });
 
+// Sitemap.xml
+Flight::route('/sitemap.xml', function () {
+    header("Content-Type: application/xml");
+
+    $sth = Flight::db()->prepare("SELECT * FROM `issues` ORDER BY `date` DESC");
+    $sth->setFetchMode(PDO::FETCH_CLASS, Issue::class);
+
+    $sth->execute();
+
+    Flight::render('sitemap', ['issues' => $sth->fetchAll()]);
+});
 
 /**
  * Editor specific routes
